@@ -92,16 +92,22 @@ export class DetailComponent implements OnInit {
           // Get the country name and the data for the line chart
           this.countryName = this.countryData[0].country;
 
-          // Calculate total entries/medals/athletes for the current country
+          // Calculate the total number of entries for the current country
           this.totalEntries = this.countryData[0].participations.length;
 
-          for (let i = 0; i < this.countryData[0].participations.length; i++) {
-            this.totalMedals += this.countryData[0].participations[i].medalsCount;
-            this.totalAthletes += this.countryData[0].participations[i].athleteCount;
+          // Calculate total medals and total athletes for the current country
+          this.totalMedals = this.countryData[0].participations.reduce(
+            (acc, cur) => acc + cur.medalsCount, 0
+          );
+          this.totalAthletes = this.countryData[0].participations.reduce(
+            (acc, cur) => acc + cur.athleteCount, 0
+          );
 
+          // Calculate the data for the line chart
+          for (let participation of this.countryData[0].participations) {
             this.seriesData.push({
-              "name": this.countryData[0].participations[i].year.toString(), 
-              "value": this.countryData[0].participations[i].medalsCount
+              "name": participation.year.toString(), 
+              "value": participation.medalsCount
             });
           }
 
@@ -110,8 +116,6 @@ export class DetailComponent implements OnInit {
             "name": this.countryName, 
             "series": this.seriesData
           });
-
-          console.log(this.countryData[0].participations);
 
           // Update the chart data with the calculated values
           this.multi = [...this.chartData];
