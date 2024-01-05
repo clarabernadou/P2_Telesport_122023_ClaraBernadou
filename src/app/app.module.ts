@@ -8,11 +8,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts'; // Import the chart library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; // add the icon library
+import { DetailComponent } from './pages/detail/detail.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    HomeComponent,
+    HomeComponent, 
+    DetailComponent,
     NotFoundComponent
   ],
   imports: [
