@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit {
   public single: {name: string, value: number}[] = [];
 
   public view: [number, number] = [700, 400];
+  public gradient = false;
+  public labels = true;
 
   public colorScheme: Color = {
     domain: ['#793D52', '#89A1DA', '#9680A1', '#BEE0F1', '#B8CAE6', '#945F65'],
@@ -37,13 +39,9 @@ export class HomeComponent implements OnInit {
     group: ScaleType.Ordinal,
   };
 
-  public gradient = false;
-  public labels = true;
 
   constructor(
     private olympicService: OlympicService,
-    private route: ActivatedRoute,
-    private location: Location,
     private router: Router 
   ) {}
 
@@ -53,7 +51,9 @@ export class HomeComponent implements OnInit {
         if (data && Array.isArray(data)) {
           console.log('Données récupérées avec succès : ', data);
 
+          // Calculate total countries
           this.totalCountries = data.length;
+          
           // Calculate total JOs
           let totalJOs = new Set();
           for (let i = 0; i < data.length; i++) {
