@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
     group: ScaleType.Ordinal,
   };
 
-
   constructor(
     private olympicService: OlympicService,
     private router: Router 
@@ -56,27 +55,27 @@ export class HomeComponent implements OnInit {
           
           // Calculate total JOs
           let totalJOs = new Set();
-          for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < data[i].participations.length; j++) {
-              totalJOs.add(data[i].participations[j].year);
-            }
-          }
+          data.forEach((country) => {
+            country.participations.forEach((participation: any) => {
+              totalJOs.add(participation.year);
+            })
+          })
           this.totalJOs = totalJOs.size;
 
-          // Iterate through each country in the data
-          for (let i = 0; i < data.length; i++) {
-            // Calculate total medals for the current country
+          // Calculate total medals for each country
+          data.forEach((country) => {
             let totalMedals = 0;
-            for (let j = 0; j < data[i].participations.length; j++) {
-              totalMedals += data[i].participations[j].medalsCount;
-            }
+            country.participations.forEach((participation: any) => {
+              totalMedals += participation.medalsCount;
+            })
+            this.totalMedals += totalMedals;
 
             // Push the country data to the chartData array
             this.chartData.push({
-              name: data[i].country,
+              name: country.country,
               value: totalMedals,
             });
-          }
+          });
 
           // Update the chart data with the calculated values
           this.single = [...this.chartData];
@@ -91,13 +90,13 @@ export class HomeComponent implements OnInit {
     });
   }
   
-  onSelect(event: {name: string, value: number}): void {
+  // Handle the click on a country, redirect to the country page
+  public onSelect(event: {name: string, value: number}): void {
     this.router.navigate(['/country', event.name]);
   }
 
-
   // Destroy the subscription to prevent memory leaks
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
