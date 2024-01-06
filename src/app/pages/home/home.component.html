@@ -1,3 +1,32 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<div class="flex flex-col justify-center items-center p-12 gap-5">
+  <h2 class="text-3xl font-normal bg-primary rounded-lg p-2" style="color: white;" >Medals per Country</h2>
+
+  <!-- Cards -->
+  <div class="flex font-light gap-10 text-black">
+    <app-card title="Number of JOs" [value]="totalJOs"></app-card>
+    <app-card title="Number of Countries" [value]="totalCountries"></app-card>
+  </div>
+
+  <!-- Pie Chart -->
+  <ngx-charts-pie-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="single"
+    [doughnut]="false"
+    [explodeSlices]="false"
+    [labels]="labels"
+    [gradient]="gradient"
+    [tooltipDisabled]="false"
+    (select)="onSelect($event)"
+  >
+    <ng-template #tooltipTemplate let-model="model" >
+      <div class="flex flex-col align-center justify-center p-2 text-sm">
+        <h1>{{ model.name }}</h1>
+        <div class="flex align-center justify-center gap-1">
+          <fa-icon [icon]="faMedal"></fa-icon>
+          <h2>{{ model.value }}</h2>       
+        </div>        
+      </div>
+    </ng-template>
+  </ngx-charts-pie-chart>
+</div>
