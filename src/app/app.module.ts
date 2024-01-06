@@ -9,13 +9,15 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts'; // Import the chart library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; // add the icon library
 import { DetailComponent } from './pages/detail/detail.component';
+import { CardComponent } from './components/card-component/card-component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HomeComponent, 
     DetailComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule, 
