@@ -10,6 +10,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'; // Import the chart libr
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; // add the icon library
 import { DetailComponent } from './pages/detail/detail.component';
 import { CardComponent } from './components/card/card.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CardComponent } from './components/card/card.component';
     HomeComponent, 
     DetailComponent,
     NotFoundComponent,
-    CardComponent
+    CardComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule, 
