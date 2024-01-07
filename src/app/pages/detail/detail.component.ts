@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Subscription } from 'rxjs';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { LoaderService } from 'src/app/loader.service';
 
 @Component({
   selector: 'app-detail',
@@ -73,9 +74,12 @@ export class DetailComponent implements OnInit {
     private olympicService: OlympicService, 
     private route: ActivatedRoute, 
     private location: Location,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loaderService.show();
+
     // Get the country name from the URL
     const countryName = this.route.snapshot.paramMap.get('countryName');
 
@@ -119,12 +123,16 @@ export class DetailComponent implements OnInit {
 
           // Update the chart data with the calculated values
           this.multi = [...this.chartData];
+          
+          this.loaderService.hide();
         } else {
           console.log('Pas de données de participation pour le pays.');
+          this.loaderService.hide();
         }
       },
       error: (err) => {
         console.log('Impossible de récupérer les données : ', err);
+        this.loaderService.hide();
       },
     });  
   }

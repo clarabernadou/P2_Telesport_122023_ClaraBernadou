@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { Observable, Subscription, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { LoaderService } from 'src/app/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -41,10 +41,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private olympicService: OlympicService,
-    private router: Router 
+    private router: Router ,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loaderService.show();
+
     this.subscription = this.olympicService.getOlympics().subscribe({
       next: (data) => {
         if (data && Array.isArray(data)) {
@@ -80,12 +83,16 @@ export class HomeComponent implements OnInit {
           // Update the chart data with the calculated values
           this.single = [...this.chartData];
           console.log(this.single);
+
+          this.loaderService.hide();
         } else {
           console.error('Les données récupérées sont invalides : ', data);
+          this.loaderService.hide();
         }
       },
       error: (error) => {
         console.error('Une erreur s\'est produite lors de la récupération des données : ', error);
+        this.loaderService.hide();
       }
     });
   }
