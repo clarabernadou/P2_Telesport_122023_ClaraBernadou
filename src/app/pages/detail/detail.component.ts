@@ -127,7 +127,8 @@ export class DetailComponent implements OnInit {
           this.loaderService.hide();
         } else {
           console.log('Pas de données de participation pour le pays.');
-          this.loaderService.hide();
+          this.location.replaceState('/not-found');
+          window.location.reload();
         }
       },
       error: (err) => {

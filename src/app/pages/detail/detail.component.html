@@ -2,10 +2,10 @@
 <app-loader></app-loader>
 
 <div class="flex flex-col justify-center items-center p-12 gap-5">
-  <h2 class="text-3xl font-normal bg-primary rounded-lg p-2" style="color: white;">{{ countryName }}</h2>
+  <h2 class="text-3xl text-center font-normal bg-primary rounded-lg p-2" style="color: white;">{{ countryName }}</h2>
 
   <!-- Cards -->
-  <div class="flex font-light gap-10 text-black">
+  <div style="gap: inherit;" class="flex font-light text-black">
     <app-card title="Number of entries" [value]="totalEntries"></app-card>
     <app-card title="Total number medals" [value]="totalMedals"></app-card>
     <app-card title="Total number of athletes" [value]="totalAthletes"></app-card>
