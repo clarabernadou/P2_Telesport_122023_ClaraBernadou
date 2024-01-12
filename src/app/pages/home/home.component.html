@@ -2,10 +2,10 @@
 <app-loader></app-loader>
 
 <div class="flex flex-col justify-center items-center p-12 gap-5">
-  <h2 class="text-3xl font-normal bg-primary rounded-lg p-2" style="color: white;" >Medals per Country</h2>
+  <h2 class="text-3xl ms:text-lg text-center font-normal bg-primary rounded-lg p-2" style="color: white;" >Medals per Country</h2>
 
   <!-- Cards -->
-  <div class="flex font-light gap-10 text-black">
+  <div style="gap: inherit;" class="w-100 h-100 flex font-light text-black">
     <app-card title="Number of JOs" [value]="totalJOs"></app-card>
     <app-card title="Number of Countries" [value]="totalCountries"></app-card>
   </div>
